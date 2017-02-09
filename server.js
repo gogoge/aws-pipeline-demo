@@ -1,24 +1,41 @@
 "use strict"
 const CONFIG = require('./config')
 
-var koa = require('koa')
-var app = koa();
+const Koa = require('koa')
+const Router = require('koa-router')
 
-const kk = [1,1,2,2,2]
+const app = new Koa()
+const router = new Router()
+const staticPath = require('koa-static')
+
+// static folder
+app.use(staticPath('build', CONFIG.BROWSER_CACHE_MAXAGE)) // path and browser cache time (ms)
+
+// koa-router init
+app
+  .use(router.routes())
+  .use(router.allowedMethods())
+
+// koa-router rules
+router.get('/', function (ctx, next) {
+  ctx.body = sendRenderResult(123)
+})
+
+
 function sendRenderResult(html) {
-  return `<!doctype html>
-    <html>
-    <head><title>Training Project</title>
-    </head>
-    <body>
-      <div id="app">${html}</div>
-      <script src="/dist/bundle.js"></script>
-    </body>
-  </html>`
+  return `<!-- index.html -->
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8">
+        <title>Hello webpack</title>
+      </head>
+      <body>
+        <div id="react-root"></div>
+        <script src="bundle.js"></script>
+      </body>
+    </html>`
 }
 
-app.use(function *(){
-  this.body = sendRenderResult(123)
-})
 
 app.listen(CONFIG.HOST_PORT)
