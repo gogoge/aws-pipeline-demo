@@ -1,0 +1,14 @@
+{
+  "name": "Docker-web-dashboard",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {},
+  "author": "Webb Lu",
+  "license": "MIT",
+  "dependencies": {
+    "browser-sync": "^2.18.7",
+    "eslint": "^3.15.0",
+    "gulp": "^3.9.1",
+    "koa": "^1.2.4"
+  }
+}
