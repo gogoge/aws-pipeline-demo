@@ -8,7 +8,7 @@ module.exports = {
     // necessary for hot reloading with IE:
     // 'eventsource-polyfill',
     // listen to code updates emitted by hot middleware:
-    // 'webpack-hot-middleware/client',
+    // 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
     // your code:
     './src/index',
   ],
