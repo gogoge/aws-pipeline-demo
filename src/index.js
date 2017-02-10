@@ -4,7 +4,7 @@ import { render } from 'react-dom'
 // import style from '../css/style.sass'
 //stateless component
 const Root = () => {
-    return <div><h1>1213</h1>q</div>
+    return <div><h1>qq1qq111</h1>q</div>
 }
 // HMR
 // if (module.hot) {
@@ -30,3 +30,7 @@ export default class Index extends Component{
 
 const reactRootDom = document.getElementById('react-root')
 render(<Index />, reactRootDom)
+
+if (module.hot) {
+  module.hot.accept()
+}

@@ -8,14 +8,14 @@ const app = new Koa()
 const router = new Router()
 const staticPath = require('koa-static')
 
-// 2. webpack dev server and hot reload middleware
+// // 2. webpack dev server and hot reload middleware
 const webpackDevMiddleware = require('webpack-dev-middleware')
-// const webpackHotMiddleware = require("webpack-hot-middleware")
+// // const webpackHotMiddleware = require("webpack-hot-middleware")
 const webpackConfig = require('./webpack.config.js')
 const webpack = require('webpack')
-const compiler = webpack(webpackConfig)
+const compiler = webpack(webpackConfig('dev'))
 
-// 2. ref: https://segmentfault.com/a/1190000004883199?utm_source=tuicool&utm_medium=referral
+// // 2. ref: https://segmentfault.com/a/1190000004883199?utm_source=tuicool&utm_medium=referral
 const koaWebpackMiddleware = (compiler, options = {}) => {
   const { publicPath } = compiler.options.output
   // if middleware opts exist, use it instead webpack.config
@@ -30,7 +30,7 @@ const koaWebpackMiddleware = (compiler, options = {}) => {
   }
 }
 
-// 2. ref: https://segmentfault.com/a/1190000004883199?utm_source=tuicool&utm_medium=referral
+// // 2. ref: https://segmentfault.com/a/1190000004883199?utm_source=tuicool&utm_medium=referral
 function applyMiddleware(middleware, req, res) {
   const _send = res.send;
   return new Promise((resolve, reject) => {
@@ -50,7 +50,7 @@ app.use(koaWebpackMiddleware(compiler, {
   quiet: false,
   // switch into lazy mode
   // that means no watching, but recompilation on every request
-  lazy: true,
+  lazy: false,
   // watch options (only lazy: false)
   watchOptions: {
       aggregateTimeout: 300,
@@ -60,7 +60,7 @@ app.use(koaWebpackMiddleware(compiler, {
   headers: { "X-Custom-Header": "yes" },
   // public path to bind the middleware to
   // use the same as in webpack
-  publicPath: webpackConfig.output.publicPath,
+  publicPath: webpackConfig('dev').output.publicPath,
   // options for formating the statistics
   stats: { colors: true }
 }))
@@ -87,8 +87,8 @@ function sendRenderResult(html) {
         <title>Hello webpack</title>
       </head>
       <body>
-        <div id="react-root"></div>
-        <script src="${compiler.options.output.publicPath}/bundle.js"></script>
+        <div id="react-root">1</div>
+        <script src="build/bundle.js"></script>
       </body>
     </html>`
 }
