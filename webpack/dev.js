@@ -9,7 +9,7 @@ module.exports = function (env) {
       // necessary for hot reloading with IE:
       // 'eventsource-polyfill',
       // listen to code updates emitted by hot middleware:
-      'webpack-dev-server/client?http://localhost:3000', // WebpackDevServer host and port
+      'webpack-dev-server/client?http://localhost:5000', // WebpackDevServer host and port
       'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
     ],
     // devtool: 'eval-source-map',

@@ -3,18 +3,36 @@ import ReactDOM from 'react-dom'
 // import { AppContainer } from 'react-hot-loader'
 
 // import Main from 'components/Main'
-// import style from '../css/style.sass'
+import './index.css'
 //stateless component
 const Root = () => {
-    return <div><h1>qq</h1>q</div>
+
+  return <div><h1>123121212</h1></div>
 }
-// HMR
-// if (module.hot) {
-//   module.hot.accept();
-// }
+
+class Counter extends Component {
+  state = {
+    cnt: 3,
+  }
+  click = () => {
+    this.setState({ cnt: this.state.cnt+1 })
+  }
+  render () {
+    return (
+      <div styleName="test">
+        {this.state.cnt}
+        <button onClick={this.click}>+112</button>
+      </div>
+    )
+  }
+}
+
+if (module.hot) {
+  module.hot.accept()
+}
 
 //state component
-export default class Index extends Component{
+export default class Index extends Component {
   constructor(props){
     super(props)
   }
@@ -22,6 +40,7 @@ export default class Index extends Component{
     return (
       <div>
         <Root />
+        <Counter />
       </div>
     )
   }

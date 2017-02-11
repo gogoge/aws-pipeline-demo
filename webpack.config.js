@@ -3,7 +3,10 @@
 const webpack = require('webpack')
 const path = require('path')
 const GLOBAL_PATH = require('./path')
+
+const context = `${__dirname}`
 module.exports = {
+  context,
   entry: [
     // necessary for hot reloading with IE:
     // 'eventsource-polyfill',
@@ -19,7 +22,8 @@ module.exports = {
     // 'webpack-hot-middleware/client',
     // bundle the client for hot reloading
     // only- means to only hot reload for successful updates
-
+    'webpack/hot/only-dev-server',
+    'webpack-hot-middleware/client?http://0.0.0.0:3000',
     './src/index',
   ],
   // devtool: 'eval-source-map',
@@ -42,23 +46,46 @@ module.exports = {
   output: {
     path: GLOBAL_PATH.BUILD_PATH,
     filename: 'bundle.js',
-    publicPath: 'build',
+    publicPath: '/build/',
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    // enable HMR globally
 
+    new webpack.NamedModulesPlugin(),
+    // prints more readable module names in the browser console on HMR updates
+
+  ],
   module: {
-    rules: [{
-      test: /\.jsx?$/,
-      exclude: /node_modules/,
-      include: path.join(__dirname, 'src'),
-      use: [{
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            ['es2015', { modules: false }],
-          ],
-        },
-      }],
-    }],
+    rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        include: path.join(__dirname, 'src'),
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['es2015', { modules: false }],
+              'react',
+            ],
+            'plugins': [
+              ['transform-class-properties', { 'spec': true }],
+              ['react-css-modules', { context, webpackHotModuleReloading: true }],
+            ],
+          },
+
+        }],
+      },
+      {
+        test: /\.css?$/,
+        include: path.join(__dirname, 'src'),
+        use: [
+          'style-loader',
+          'css-loader?importLoader=1&modules&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+        ],
+      },
+    ],
   },
 }
 
