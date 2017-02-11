@@ -1,17 +1,64 @@
-module.exports = function (env) {
-  // If the development environment is not detected 
-  // we throw an error telling the user 
-  // what the correct params are.
-  try {
-    if (['dev', 'prod'].indexOf(env) === -1) {
-      throw new Error('\'' + env + "' is not valid env flag.  Please pass '--env dev' or '--env prod'.")
-    }
-  } catch (e) {
-    return console.error(e)
-  }
-  
-  // This is how we include the correct environment config file
-  const totalWebpackConfig = require('./webpack/' + env + '.js')({ env: env })
-  console.warn(totalWebpackConfig.module)
-  return totalWebpackConfig
+// const webpackMerge = require('webpack-merge')
+// const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+const webpack = require('webpack')
+const path = require('path')
+const GLOBAL_PATH = require('./path')
+module.exports = {
+  entry: [
+    // necessary for hot reloading with IE:
+    // 'eventsource-polyfill',
+    // listen to code updates emitted by hot middleware:
+    // 'react-hot-loader/patch',
+    // activate HMR for React
+
+    // 'webpack-dev-server/client?http://0.0.0.0:3000',
+    // bundle the client for webpack-dev-server
+    // and connect to the provided endpoint
+
+    // 'webpack/hot/only-dev-server',
+    // 'webpack-hot-middleware/client',
+    // bundle the client for hot reloading
+    // only- means to only hot reload for successful updates
+
+    './src/index',
+  ],
+  // devtool: 'eval-source-map',
+  // plugins: [
+    // BundleAnalyzerPlugin will show you how much space each library in your app is using.
+    // new BundleAnalyzerPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
+    // enable HMR globally
+
+    // new webpack.NamedModulesPlugin(),
+    // prints more readable module names in the browser console on HMR updates
+
+    // new webpack.NoEmitOnErrorsPlugin(),
+    // do not emit compiled assets that include errors
+    // new ExtractTextPlugin('css/app.css'),
+    // new OptimizeJsPlugin({
+    //   sourceMap: true,
+    // }),
+  // ],
+  output: {
+    path: GLOBAL_PATH.BUILD_PATH,
+    filename: 'bundle.js',
+    publicPath: 'build',
+  },
+
+  module: {
+    rules: [{
+      test: /\.jsx?$/,
+      exclude: /node_modules/,
+      include: path.join(__dirname, 'src'),
+      use: [{
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            ['es2015', { modules: false }],
+          ],
+        },
+      }],
+    }],
+  },
 }
+

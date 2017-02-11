@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
+// import { AppContainer } from 'react-hot-loader'
+
 // import Main from 'components/Main'
 // import style from '../css/style.sass'
 //stateless component
 const Root = () => {
-    return <div><h1>qq1qq111</h1>q</div>
+    return <div><h1>qq</h1>q</div>
 }
 // HMR
 // if (module.hot) {
@@ -25,12 +27,23 @@ export default class Index extends Component{
   }
 }
 
-// const reactRootDom = document.querySelector('#react-root')
+const reactRootDom = document.querySelector('#react-root')
 // root.innerHTML = `<p>Hello webpack.</p>`
 
-const reactRootDom = document.getElementById('react-root')
-render(<Index />, reactRootDom)
+// const reactRootDom = document.getElementById('react-root')
 
-if (module.hot) {
-  module.hot.accept()
-}
+// const render = (Component, reactRootDom) => {
+//   ReactDOM.render(
+//     <AppContainer>
+//       <Component />
+//     </AppContainer>,
+//     document.getElementById(reactRootDom)
+//   )
+// }
+
+
+ReactDOM.render(<Index />, reactRootDom)
+
+// if (module.hot) {
+//   module.hot.accept()
+// }
