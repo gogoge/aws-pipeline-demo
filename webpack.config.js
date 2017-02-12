@@ -24,7 +24,7 @@ module.exports = {
     // only- means to only hot reload for successful updates
     'webpack/hot/only-dev-server',
     'webpack-hot-middleware/client?http://0.0.0.0:3000',
-    './src/index',
+    './src/app/',
   ],
   // devtool: 'eval-source-map',
   // plugins: [
@@ -70,6 +70,7 @@ module.exports = {
               'react',
             ],
             'plugins': [
+              'transform-decorators-legacy',
               ['transform-class-properties', { 'spec': true }],
               ['react-css-modules', { context, webpackHotModuleReloading: true }],
             ],

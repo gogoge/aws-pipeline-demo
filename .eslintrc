@@ -55,7 +55,7 @@
     "react/jsx-key": ["error"],
     "no-trailing-spaces": ["error", { "skipBlankLines": true }],
     // "react/jsx-equals-spacing": ["error", "always"],
-    "react/jsx-no-literals": ["error"],
+    //"react/jsx-no-literals": ["error"],
     "react/jsx-no-undef": ["error"],
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],

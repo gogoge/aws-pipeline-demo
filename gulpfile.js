@@ -9,8 +9,6 @@ const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 
 gulp.task('browser-sync', function(done) {
-  console.log(1)
-  // next()
   const compiler = webpack(webpackConfig)
   browserSync.init({
     proxy: {
@@ -35,8 +33,6 @@ gulp.task('browser-sync', function(done) {
 })
 
 gulp.task('koa-dev-server', function(done) {
-  console.log(2)
-
   const stream = nodemon({
     script: 'server.js',
     watch: ['server.js'],

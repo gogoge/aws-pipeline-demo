@@ -37,6 +37,8 @@ HMR的middleware需要bundle後的結果，以這個方法可以用變數的方�
 由gulp的方式啟動bs及server.js
 
 
+> decorator error
+babel-plugin-transform-decorators-legacy
 # gulp 
 http://russmatney.com/techsposure/basic-koa-api-gulp-supertest/
 http://coderlt.coding.me/2016/09/01/velocity-koa-gulp/
