@@ -4,8 +4,8 @@ const initialState = { count: 0, fetchResult: [] }
 export const reducer = (state = initialState, action) => {
   console.warn(action.type)
   switch (action.type) {
-    case ACTION_TYPES.INCREASE: return { count: state.count + 1 }
-    case ACTION_TYPES.DECREASE: return { count: state.count - 1 }
+    case ACTION_TYPES.INCREASE: return Object.assign({}, state, { count: state.count + 1 })
+    case ACTION_TYPES.DECREASE: return  Object.assign({}, state, { count: state.count - 1 })
     case ACTION_TYPES.FETCH_TEST_JSON_SUCCEEDED:
       return Object.assign({}, state, { fetchResult: action.fetchResult })
 

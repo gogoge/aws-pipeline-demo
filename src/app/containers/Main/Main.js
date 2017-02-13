@@ -25,11 +25,11 @@ export default class Main extends Component {
     return (
       <div styleName="test">
         {data.count}
-        <AsyncFetchResultTitles data={data} />
         <button onClick={actions.increase}>+1</button>
         <button onClick={actions.decrease}>-1</button>
         <button onClick={actions.asyncLoad}>3sec +1</button>
         <button onClick={actions.fetch}>fetch</button>
+        <AsyncFetchResultTitles data={data} />
       </div>
     )
   }
