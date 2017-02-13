@@ -44,6 +44,7 @@
     "eslint-plugin-react": "^6.9.0",
     "gulp": "gulpjs/gulp.git#4.0",
     "gulp-nodemon": "^2.2.1",
+    "optimize-js-plugin": "^0.0.4",
     "react-hot-loader": "next",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.1",

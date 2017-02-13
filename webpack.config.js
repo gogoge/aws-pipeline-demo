@@ -3,32 +3,22 @@
 const webpack = require('webpack')
 const path = require('path')
 const GLOBAL_PATH = require('./path')
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const OptimizeJsPlugin = require("optimize-js-plugin")
 
 const context = `${__dirname}`
 module.exports = {
+  devtool: 'eval-source-map', // source-map for prod
   context,
   entry: [
     // for redux-sagas
     'babel-polyfill',
-    // necessary for hot reloading with IE:
-    // 'eventsource-polyfill',
-    // listen to code updates emitted by hot middleware:
-    // 'react-hot-loader/patch',
-    // activate HMR for React
-
-    // 'webpack-dev-server/client?http://0.0.0.0:3000',
-    // bundle the client for webpack-dev-server
-    // and connect to the provided endpoint
-
-    // 'webpack/hot/only-dev-server',
-    // 'webpack-hot-middleware/client',
-    // bundle the client for hot reloading
-    // only- means to only hot reload for successful updates
+    // for HMR
     'webpack/hot/only-dev-server',
     'webpack-hot-middleware/client?http://0.0.0.0:3000',
+    // only- means to only hot reload for successful updates
     './src/app/',
   ],
-  // devtool: 'eval-source-map',
   // plugins: [
     // BundleAnalyzerPlugin will show you how much space each library in your app is using.
     // new BundleAnalyzerPlugin(),
@@ -57,6 +47,13 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     // prints more readable module names in the browser console on HMR updates
 
+    // BundleAnalyzerPlugin will show you how much space each library in your app is using.
+    // new BundleAnalyzerPlugin(),
+
+    // optimize a JavaScript file for faster initial load
+    new OptimizeJsPlugin({
+        sourceMap: true,
+    })
   ],
   module: {
     rules: [
