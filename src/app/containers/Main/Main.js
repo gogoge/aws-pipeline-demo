@@ -3,10 +3,11 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import './main.css'
 import { actionCreators } from './actions'
+import selector from './selector'
 
 const mapStateToProps = (state) => {
   return {
-    count: state.mainReducer.count,
+    count: selector(state),
   }
 }
 
