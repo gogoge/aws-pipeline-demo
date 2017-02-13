@@ -3,4 +3,5 @@ export const actionCreators = {
   asyncLoad: () => ({ type: ACTION_TYPES.ASYNC_LOAD }),
   increase: () => ({ type: ACTION_TYPES.INCREASE }),
   decrease: () => ({ type: ACTION_TYPES.DECREASE }),
+  fetch: () => ({ type: ACTION_TYPES.FETCH_TEST_JSON }),
 }

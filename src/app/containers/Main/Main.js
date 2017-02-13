@@ -4,10 +4,10 @@ import { connect } from 'react-redux'
 import './main.css'
 import { actionCreators } from './actions'
 import selector from './selector'
-
+import { AsyncFetchResultTitles } from './widget'
 const mapStateToProps = (state) => {
   return {
-    count: selector(state),
+    data: selector(state),
   }
 }
 
@@ -20,13 +20,16 @@ const mapDispatchToProps = (dispatch) => {
 @connect(mapStateToProps, mapDispatchToProps)
 export default class Main extends Component {
   render () {
-    const { actions, count } = this.props
+    const { actions, data } = this.props
+
     return (
       <div styleName="test">
-        {count}
+        {data.count}
+        <AsyncFetchResultTitles data={data} />
         <button onClick={actions.increase}>+1</button>
         <button onClick={actions.decrease}>-1</button>
         <button onClick={actions.asyncLoad}>3sec +1</button>
+        <button onClick={actions.fetch}>fetch</button>
       </div>
     )
   }

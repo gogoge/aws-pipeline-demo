@@ -13,6 +13,7 @@
     "wdev": "yarn dev && webpack --env dev -w"
   },
   "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
     "koa": "2",
     "koa-mount": "next",
     "koa-router": "next",
