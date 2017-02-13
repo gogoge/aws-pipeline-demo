@@ -19,6 +19,9 @@ const mapDispatchToProps = (dispatch) => {
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class Main extends Component {
+  componentWillMount() {
+    this.props.actions.fetch()
+  }
   render () {
     const { actions, data } = this.props
 
