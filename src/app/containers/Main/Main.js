@@ -26,6 +26,7 @@ export default class Main extends Component {
         {count}
         <button onClick={actions.increase}>+1</button>
         <button onClick={actions.decrease}>-1</button>
+        <button onClick={actions.asyncLoad}>3sec +1</button>
       </div>
     )
   }

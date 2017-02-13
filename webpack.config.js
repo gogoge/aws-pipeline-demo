@@ -8,6 +8,8 @@ const context = `${__dirname}`
 module.exports = {
   context,
   entry: [
+    // for redux-sagas
+    'babel-polyfill',
     // necessary for hot reloading with IE:
     // 'eventsource-polyfill',
     // listen to code updates emitted by hot middleware:

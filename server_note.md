@@ -97,3 +97,46 @@ https://github.com/gajus/babel-plugin-react-css-modules/blob/master/demo/webpack
 2. 仍然是用styleName存取css
 
 > yarn add css-loader style-loader babel-plugin-react-css-modules --dev
+
+# saga 
+>  regeneratorRuntime is not defined with redux-sagas
+http://stackoverflow.com/questions/33527653/babel-6-regeneratorruntime-is-not-defined-with-async-await
+要安裝`babel-polyfill`，在webpack.config.js中的entry 加入 `babel-polyfill`
+
+簡單的非同步
+
+1. store.js
+- 用`redux-saga`的`createSagaMiddleware`產生sagamiddleware
+- 用`redux`的applyMiddleware，將前者加入redux store
+- 用`redux-saga`的`run`去執行要跑的saga task
+
+```
+const sagaMiddleware = createSagaMiddleware()
+const reducer = combineReducers({ mainReducer }) //與saga無關
+export const store = createStore(reducer, applyMiddleware(sagaMiddleware))
+sagaMiddleware.run(mainSagas.watchAsyncLoad)
+```
+
+2. 被執行的saga task 可以直接發生，也可以利用`redux-saga`提供的`effects`去等待`action`發生
+
+```
+function* asyncLoad() {
+  yield delay(3000)
+  yield put({ type: ACTION_TYPES.INCREASE })
+}
+
+function* watchAsyncLoad() {
+  yield takeEvery(ACTION_TYPES.ASYNC_LOAD, asyncLoad)
+}
+```
+> 當`ASYNC_LOAD`發生時，執行`asyncLoad` saga, 等待3秒後，再觸發`INCREASE` action
+
+原本 `event` -> `action creator` -> `reducer` -> `store`
+
+用saga 
+`takeEvery`的用途: 當某`action`發生時，執行某`task`
+task內再以`put`去啟動下一個action
+
+定義好一連串的連續動作於task後，用`run`去跑listener task
+`event` -> `active action creator` -> `reducer` -> `store`
+當listener task被觸發，就會回頭以`put`，去啟動連續的actions
