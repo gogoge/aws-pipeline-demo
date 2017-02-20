@@ -1,4 +1,4 @@
-From node:6.9.5
+From node:6.9.5-alpine
 COPY build /server/build
 COPY index.html /server
 COPY server.js /server/server.js

@@ -11,7 +11,8 @@
     "build": "yarn run clean && webpack",
     "dev": "./node_modules/.bin/babel-node server.js",
     "bsdev": "./node_modules/gulp-cli/bin/gulp.js",
-    "wdev": "yarn dev && webpack --env dev -w"
+    "wdev": "yarn dev && webpack --env dev -w",
+    "test": "./node_modules/jest/bin/jest.js"
   },
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
@@ -46,6 +47,7 @@
     "eslint-plugin-react": "^6.9.0",
     "gulp": "gulpjs/gulp.git#4.0",
     "gulp-nodemon": "^2.2.1",
+    "jest": "^18.1.0",
     "optimize-js-plugin": "^0.0.4",
     "react-hot-loader": "next",
     "style-loader": "^0.13.1",
