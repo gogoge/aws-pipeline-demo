@@ -3,4 +3,4 @@ version: 0.1
 phases:
   build:
     commands:
-      - npm && npm test
+      - npm install && npm test

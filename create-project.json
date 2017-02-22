@@ -10,7 +10,7 @@
     },
     "environment": {
         "type": "LINUX_CONTAINER",
-        "image": "node:6.9.5-alpine",
+        "image": "aws/codebuild/nodejs:7.0.0",
         "computeType": "BUILD_GENERAL1_SMALL"
     },
     "serviceRole": "arn:aws:iam::399485935277:role/CodeBuildServiceRole",
