@@ -1,10 +1,6 @@
 version: 0.1
 
 phases:
-  install:
-    commands:
-      - apt-get update -y
-      - apt-get install -y docker.io
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
@@ -12,7 +8,6 @@ phases:
   build:
     commands:
       - echo Install and Unit Test
-      - npm install && npm test
       - echo Build started on `date`
       - echo Building the Docker image...          
       - docker build -t $IMAGE_REPO_NAME .
