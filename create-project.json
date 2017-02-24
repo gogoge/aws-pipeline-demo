@@ -2,11 +2,11 @@
     "name": "webb-build",
     "description": "webb-cli-build",
     "source": {
-        "type": "CODECOMMIT",
+        "type": "CODEPIPELINE",
         "location": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/WebbGitRepo"
     },
     "artifacts": {
-        "type": "NO_ARTIFACTS"
+      "type": "CODEPIPELINE"
     },
     "environment": {
         "type": "LINUX_CONTAINER",
