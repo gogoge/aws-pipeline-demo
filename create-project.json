@@ -10,8 +10,27 @@
     },
     "environment": {
         "type": "LINUX_CONTAINER",
-        "image": "aws/codebuild/nodejs:7.0.0",
-        "computeType": "BUILD_GENERAL1_SMALL"
+        "image": "aws/codebuild/docker:1.12.1",
+        "computeType": "BUILD_GENERAL1_SMALL",
+        "environmentVariables": [
+              {
+                "name": "AWS_DEFAULT_REGION",
+                "value": "us-east-1"
+              },
+              {
+                "name": "AWS_ACCOUNT_ID",
+                "value": "399485935277"
+              },
+              {
+                "name": "IMAGE_REPO_NAME",
+                "value": "webblu"
+              },
+              {
+                "name": "IMAGE_TAG",
+                "value": "latest"
+              }
+            ]
+        },
     },
     "serviceRole": "arn:aws:iam::399485935277:role/CodeBuildServiceRole",
     "timeoutInMinutes": 5
