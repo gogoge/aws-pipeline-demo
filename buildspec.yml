@@ -4,7 +4,7 @@ phases:
   install:
     commands:
       - apt-get update -y
-      - apt-get install -y docker
+      - apt-get install -y docker.io
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
