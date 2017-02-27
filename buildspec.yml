@@ -4,15 +4,13 @@ phases:
   install:
     commands:
       - echo Install Docker agent...
-      - apt-get update -y
-      - apt-get install docker-engine -y
+      - apt-get update -y && apt-get install docker-engine -y
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION)
       - echo RUN UNIT TEST...
-      - npm install
-      - npm test
+      - npm install && npm test
   build:
     commands:
       - echo $IMAGE_REPO_NAME:$IMAGE_TAG
