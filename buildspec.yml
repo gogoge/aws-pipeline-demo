@@ -6,7 +6,7 @@ phases:
       - echo Install Docker agent...
       - echo Update
       - apt-get update -y
-      - Install
+      - echo Install
       - apt-get install docker-engine -y
   pre_build:
     commands:
