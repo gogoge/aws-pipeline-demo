@@ -10,7 +10,7 @@
     },
     "environment": {
         "type": "LINUX_CONTAINER",
-        "image": "399485935277.dkr.ecr.us-east-1.amazonaws.com/docker-node:latest",
+        "image": "aws/codebuild/docker:1.12.1",
         "computeType": "BUILD_GENERAL1_SMALL",
         "environmentVariables": [
             {

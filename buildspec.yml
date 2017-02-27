@@ -8,7 +8,6 @@ phases:
   build:
     commands:
       - echo Install and Unit Test
-      - npm install && npm test
       - echo Build started on `date`
       - echo Building the Docker image...          
       - docker build -t $IMAGE_REPO_NAME .
