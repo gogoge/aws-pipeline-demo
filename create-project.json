@@ -10,7 +10,7 @@
     },
     "environment": {
         "type": "LINUX_CONTAINER",
-        "image": "aws/codebuild/docker:1.12.1",
+        "image": "aws/codebuild/nodejs:7.0.0",
         "computeType": "BUILD_GENERAL1_SMALL",
         "environmentVariables": [
             {
