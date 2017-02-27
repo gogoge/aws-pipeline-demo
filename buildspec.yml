@@ -1,6 +1,10 @@
 version: 0.1
 
 phases:
+  install:
+    commands:
+      - echo Install Docker agent...
+      - apt-get update -y && apt-get install docker-engine -y
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
