@@ -1,6 +1,10 @@
 version: 0.1
 
 phases:
+  install:
+    commands:
+      - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+      - apt-get update && apt-get install -y nodejs
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
@@ -8,6 +12,7 @@ phases:
   build:
     commands:
       - echo Install and Unit Test
+      - npm install && npm test
       - echo Build started on `date`
       - echo Building the Docker image...          
       - docker build -t $IMAGE_REPO_NAME .
