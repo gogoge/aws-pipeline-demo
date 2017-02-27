@@ -3,6 +3,7 @@ version: 0.1
 phases:
   install:
     commands:
+      - echo Install Docker agent...
       - apt-get update -y
       - apt-get install docker.io -y
   pre_build:
@@ -11,12 +12,13 @@ phases:
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION)
   build:
     commands:
+      - echo RUN UNIT TEST...
       - npm install
       - npm test
       - echo $IMAGE_REPO_NAME:$IMAGE_TAG
       - echo $AWS_ACCOUNT_ID
       - echo Building the Docker image...
-      - docker pull hello-world
+      - docker build -t $IMAGE_REPO_NAME .
       - docker tag hello-world $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG      
   post_build:
     commands:
