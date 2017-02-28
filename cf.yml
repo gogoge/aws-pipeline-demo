@@ -291,7 +291,8 @@ Resources:
       ClusterName: webb-ecs-cluster
   WebbEcsTaskdef: 
     Type: "AWS::ECS::TaskDefinition"
-    Properties: 
+    Properties:
+      Family: webb-ecs-family
       ContainerDefinitions: 
         - 
           Name: webb-container-qq
