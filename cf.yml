@@ -9,23 +9,24 @@ Parameters:
     Description: >
       Specifies the ECS Cluster Name with which the resources would be
       associated
-    Default: default
+    Default: webb-ecs-cluster
   EcsAmiId:
     Type: String
     Description: Specifies the AMI ID for your container instances.
+    Default: ami-b2df2ca4
   EcsInstanceType:
     Type: String
     Description: >
       Specifies the EC2 instance type for your container instances.
       Defaults to m4.large
-    Default: m4.large
+    Default: t2.small
     ConstraintDescription: must be a valid EC2 instance type.
   KeyName:
     Type: String
     Description: >
       Optional - Specifies the name of an existing Amazon EC2 key pair
       to enable SSH access to the EC2 instances in your cluster.
-    Default: ''
+    Default: webbkey
   VpcId:
     Type: String
     Description: >
@@ -33,7 +34,7 @@ Parameters:
       your container instances. If you specify a VPC ID, you must specify a list of
       existing subnets in that VPC. If you do not specify a VPC ID, a new VPC is created
       with atleast 1 subnet.
-    Default: ''
+    Default: 'vpc-ac462bca'
     AllowedPattern: "^(?:vpc-[0-9a-f]{8}|)$"
     ConstraintDescription: >
       VPC Id must begin with 'vpc-' or leave blank to have a
@@ -43,13 +44,13 @@ Parameters:
     Description: >
       Optional - Specifies the Comma separated list of existing VPC Subnet
       Ids where ECS instances will run
-    Default: ''
+    Default: subnet-adbd2dc8,subnet-9f40d7a3,subnet-beefb093
   SecurityGroupId:
     Type: String
     Description: >
       Optional - Specifies the Security Group Id of an existing Security
       Group. Leave blank to have a new Security Group created
-    Default: ''
+    Default: sg-a35510df
   VpcCidr:
     Type: String
     Description: Optional - Specifies the CIDR Block of VPC
@@ -77,6 +78,7 @@ Parameters:
     Description: >
       Specifies the Name or the Amazon Resource Name (ARN) of the instance
       profile associated with the IAM role for the instance
+    Default: arn:aws:iam::399485935277:instance-profile/cloudFormation-ip
   SecurityIngressFromPort:
     Type: Number
     Description: >
@@ -105,17 +107,17 @@ Parameters:
     Description: >
       Specifies a comma-separated list of 3 VPC Availability Zones for
       the creation of new subnets. These zones must have the available status.
-    Default: ''
+    Default: us-east-1
   EbsVolumeSize:
     Type: Number
     Description: >
       Optional - Specifies the Size in GBs, of the newly created Amazon
       Elastic Block Store (Amazon EBS) volume
-    Default: '0'
+    Default: 22
   EbsVolumeType:
     Type: String
     Description: Optional - Specifies the Type of (Amazon EBS) volume
-    Default: ''
+    Default: gp2
     AllowedValues:
       - ''
       - standard
@@ -130,15 +132,15 @@ Parameters:
     Default: ''
 Conditions:
   CreateEC2LCWithKeyPair:
-    !Not [!Equals [!Ref KeyName, '']]
+    !Not [!Equals [!Ref KeyName, '']] #KeyName 不等於空白
   SetEndpointToECSAgent:
-    !Not [!Equals [!Ref EcsEndpoint, '']]
+    !Not [!Equals [!Ref EcsEndpoint, '']]  #EcsEndpoint不等於空白
   CreateNewSecurityGroup:
-    !Equals [!Ref SecurityGroupId, '']
+    !Equals [!Ref SecurityGroupId, ''] #SecurityGroupId 等於空白
   CreateNewVpc:
-    !Equals [!Ref VpcId, '']
+    !Equals [!Ref VpcId, ''] #VpcId 等於空白
   CreateSubnet1: !And
-    - !Not [!Equals [!Ref SubnetCidr1, '']]
+    - !Not [!Equals [!Ref SubnetCidr1, '']] #SubnetCidr1不等於空白，而且VpcId等於空白
     - !Condition CreateNewVpc
   CreateSubnet2: !And
     - !Not [!Equals [!Ref SubnetCidr2, '']]
@@ -283,6 +285,44 @@ Resources:
           Value: >
             This instance is the part of the Auto Scaling group which was created through ECS Console
           PropagateAtLaunch: 'true'
+  WebbEcsCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: webb-ecs-cluster
+  WebbEcsTaskdef: 
+    Type: "AWS::ECS::TaskDefinition"
+    Properties: 
+      ContainerDefinitions: 
+        - 
+          Name: webb-container-qq
+        #  MountPoints: 
+        #    - 
+        #      SourceVolume: "my-vol"
+        #      ContainerPath: "/var/www/my-vol"
+          Image: "399485935277.dkr.ecr.us-east-1.amazonaws.com/webblu"
+          Cpu: "1"
+          PortMappings: 
+            - 
+              ContainerPort: 3000
+              HostPort: 80
+        #  EntryPoint: 
+        #    - "/usr/sbin/apache2"
+        #    - "-D"
+        #    - "FOREGROUND"
+          Memory: "128"
+        #  Essential: "true"
+      #TaskRoleArn : arn:aws:iam::399485935277:role/cloudFormation
+      #Volumes: 
+        #- 
+          #Host: 
+          #  SourcePath: "/var/lib/docker/vfs/dir/"
+          #Name: "my-vol"
+  WebAppEcsService: 
+    Type: "AWS::ECS::Service"
+    Properties: 
+      Cluster: !Ref WebbEcsCluster
+      DesiredCount: 1
+      TaskDefinition: !Ref WebbEcsTaskdef
 Outputs:
   EcsInstanceAsgName:
     Description: Auto Scaling Group Name for ECS Instances
