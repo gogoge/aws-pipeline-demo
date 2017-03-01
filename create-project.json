@@ -1,9 +1,9 @@
 {
-    "name": "webb-build",
+    "name": "webb-build-x",
     "description": "webb-cli-build",
     "source": {
         "type": "CODEPIPELINE",
-        "location": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/WebbGitRepo"
+        "location": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/CodeCommitDemo"
     },
     "artifacts": {
       "type": "CODEPIPELINE"
