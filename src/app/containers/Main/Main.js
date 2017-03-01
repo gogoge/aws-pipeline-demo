@@ -27,7 +27,7 @@ export default class Main extends Component {
 
     return (
       <div styleName="test">
-        <p styleName="subtitle">副標題</p>
+        <p styleName="subtitle">新的副標題</p>
         <p styleName="title">一個主標題</p>
         <p styleName="description">但是我是看著地面的人，我想修補就在我面前的坑洞，以免跌進去。</p>
         <p styleName="number">{data.count}</p>
