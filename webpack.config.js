@@ -14,8 +14,8 @@ module.exports = {
     // for redux-sagas
     'babel-polyfill',
     // for HMR
-    'webpack/hot/only-dev-server',
-    'webpack-hot-middleware/client?http://0.0.0.0:3000',
+    //'webpack/hot/only-dev-server',
+    //'webpack-hot-middleware/client?http://0.0.0.0:3000',
     // only- means to only hot reload for successful updates
     './src/app/',
   ],
