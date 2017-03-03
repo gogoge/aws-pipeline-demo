@@ -27,9 +27,9 @@ export default class Main extends Component {
 
     return (
       <div styleName="test">
-        <p styleName="subtitle">副標題</p>
+        <p styleName="subtitle">123副標題</p>
         <p styleName="title">一個主標題</p>
-        <p styleName="description">12312312</p>
+        <p styleName="description">描述</p>
         <p styleName="number">{data.count}</p>
         <button onClick={actions.increase}>+1</button>
         <button onClick={actions.decrease}>-1</button>
